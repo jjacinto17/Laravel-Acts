@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\SaludoController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return "<h1> Hola </h1>";
 });
 
-Route::get('/{saludo}/{user}/{userA?}', function ($saludo, $user, $userA = null) {
+/*Route::get('/{saludo}/{user}/{userA?}', function ($saludo, $user, $userA = null) {
     if ($saludo === "saludo") {
         if (preg_match('/^[A-Za-z]+$/', $user)) {
             if ($userA !== null) {
@@ -18,7 +20,9 @@ Route::get('/{saludo}/{user}/{userA?}', function ($saludo, $user, $userA = null)
             return "No se permiten números en el nombre de usuario.";
         }
     }
-})->where('user', '[A-Za-z]+')->where('userA', '[A-Za-z]+');
+})->where('user', '[A-Za-z]+')->where('userA', '[A-Za-z]+');*/
+
+Route::get('{saludo}/{user}/{userA?}', [SaludoController::class, 'saludo'])->where('user', '[A-Za-z]+')->where('userA', '[A-Za-z]+');
 
 Route::get('/{operacion}/{num1}/{num2}', function ($operacion, $num1, $num2) {
     if ($operacion === "suma") {
@@ -42,7 +46,7 @@ Route::get('/{operacion}/{num1}/{num2}', function ($operacion, $num1, $num2) {
         }
 
     } else {
-        return "<h1> Operación incorrecta </h1>" ;
+        return "<h1> Operación incorrecta </h1>";
     }
 });
 
